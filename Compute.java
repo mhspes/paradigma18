@@ -1,13 +1,12 @@
 import java.util.Stack;
-import java.lang.NumberFormatException;
-import java.util.EmptyStackException;
     
 class Compute{
 
   private int n1;  // Pinon p‰‰llimm‰iset alkiot
-  private int n2;  
-  private int result0;
-  private boolean result1;
+  private int n2;
+  private boolean b1; // Pinon p‰‰llimm‰iset (boolean) arvot
+  private boolean b2;
+  private Object result;
 
   /* Oletuskonstruktori riitt‰‰, arvot luodaan ajon aikana
   *
@@ -15,76 +14,79 @@ class Compute{
   * n1 pinon p‰‰llimm‰isin, n2 seuraava arvo ja operaatiot n2 <operaatio> n1 
   * Metodi suorittaa yhden operaation ja paluuarvo pinon p‰‰llimm‰iseksi 
   */
-  protected int compute(int n2, int n1, String operand){
-    this.n2 = n2;
-    this.n1 = n1; 
+  protected int compute(Object num2, Object num1, String operand){
+    n2 = (int)num2;
+    n1 = (int)num1; 
     System.out.println("Operandi : " + operand + " Arvot: " + n2 + " ja " + n1);
     switch (operand) {
       case "+":
-          result0 = n2 + n1;
-          System.out.println("Lasketaan :" + n2 + "+" + n1 + "=" + result0);
+          result = n2 + n1;
+          System.out.println("Lasketaan :" + n2 + "+" + n1 + "=" + result);
           break;
         case "-":
-          result0 = n2 - n1;
-          System.out.println("Lasketaan :" + n2 + "-" + n1 + "=" + result0);
+          result = n2 - n1;
+          System.out.println("Lasketaan :" + n2 + "-" + n1 + "=" + result);
           break;
         case "*":
-          result0 = n2 * n1;
-          System.out.println("Lasketaan :" + n2 + "*" + n1 + "=" + result0);
+          result = n2 * n1;
+          System.out.println("Lasketaan :" + n2 + "*" + n1 + "=" + result);
           break;
         case "/":
-          result0 = n2 / n1;
-          System.out.println("Lasketaan :" + n2 + "/" + n1 + "=" + result0);
+          result = n2 / n1;
+          System.out.println("Lasketaan :" + n2 + "/" + n1 + "=" + result);
           break;
         }
-    return result0;
+    return (int)result;
   }
   
   // Vertailut
-  protected boolean compare(int n1, int n2, String operand){
-    this.n2 = n2;
-    this.n1 = n1;
-    result1 = false;
+  protected boolean compare(Object num2, Object num1, String operand){
+    n2 = (int)num2;
+    n1 = (int)num1;
+    result = false;
     
     switch (operand) {
       case "==":
-          result1 = n2 == n1;
+          result = n2 == n1;
           break;
         case "<":
-          result1 = n2 < n1;      
+          result = n2 < n1;      
           break;
         case ">":
-          result1 = n2 > n1;
+          result = n2 > n1;
           break;
         case "!=":
-          result1 = n2 != n1;
+          result = n2 != n1;
           break;    
         }
-      
-    return result1;   
+    System.out.println(n2 + " " + operand + " " + n1 + " equals: " + result);  
+    return (boolean)result;   
   }
-  
-  protected boolean connective(int n1, int n2, String operand){
-    this.n2 = n2;
-    this.n1 = n1;
-    result1 = false;
+  // Totuurarvo and, or
+  protected boolean connective(Object bool2, Object bool1, String operand){
+    b2 = (boolean)bool2;
+    b1 = (boolean)bool1;
+    result = false;
     
     switch (operand) {
       case "or":
-          result1 = n2 == n1;
+          result = b2 || b1;
           break;
         case "and":
-          result1 = n2 < n1;      
+          result = b2 && b1;      
           break;
-        case "not":
-          result1 = n2 > n1;
-          break;  
         }
-    if (result1){ 
-      System.out.println(n2 + " " + operand + " " + n1 + " is true "); 
+    if ((boolean)result){ 
+      System.out.println(b2 + " " + operand + " " + b1 + " is true "); 
     } else {
-      System.out.println(n2 + " " + operand + " " + n1 + " is false ");
+      System.out.println(b2 + " " + operand + " " + b1 + " is false ");
     }
-    return result1;   
+    return (boolean)result;   
+  }
+  // Tootuusarvo not
+  protected boolean connective(Object bool1){
+   b1 = (boolean)bool1;
+   System.out.println("Value is negated: " + bool1);
+   return !(boolean)bool1;
   }
 }
