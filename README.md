@@ -1,5 +1,5 @@
 # paradigma18
-
+```
 TASK LIST:
 ~~Literaalit lukuarvoille
 Literaalit totuusarvoille
@@ -20,3 +20,4 @@ Syntaksiesimerkkejä:
 "15 7 1 1 + - / 3 * 2 1 1 + + - ."  = (3*(15/((7-(1+1))))-(2+(1+1)) = 9-4 = 5
 "5 6 < 4 < 7 and"  = 5<6 and 4<7 = true
 "true false or false false or and print"  = ((true) or (false)) and ((false) or (false)) = false
+```
