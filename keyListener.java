@@ -82,7 +82,7 @@ class KeyListener{
             ds.push((int) comp.compute(n2,n1,(String)temp)); // Tulos takaisin datapinoon
           } 
           // Vertailut
-          else if (temp.equals("=") ||temp.equals("<") ||temp.equals(">")){
+          else if (temp.equals("==") ||temp.equals("<") ||temp.equals(">") ||temp.equals("!=")){
             n1 = ds.pop();
             n2 = ds.pop();
             ds.push((boolean) comp.compare(n2,n1,(String)temp));

@@ -2,17 +2,17 @@ import java.util.Stack;
     
 class Compute{
 
-  private int n1;  // Pinon p√§√§llimm√§iset alkiot
+  private int n1;  // Pinon p‰‰llimm‰iset alkiot
   private int n2;
-  private boolean b1; // Pinon p√§√§llimm√§iset (boolean) arvot
+  private boolean b1; // Pinon p‰‰llimm‰iset (boolean) arvot
   private boolean b2;
   private Object result;
 
-  /* Oletuskonstruktori riitt√§√§, arvot luodaan ajon aikana
+  /* Oletuskonstruktori riitt‰‰, arvot luodaan ajon aikana
   *
   * Aritmettiset operaatiot 
-  * n1 pinon p√§√§llimm√§isin, n2 seuraava arvo ja operaatiot n2 <operaatio> n1 
-  * Metodi suorittaa yhden operaation ja paluuarvo pinon p√§√§llimm√§iseksi 
+  * n1 pinon p‰‰llimm‰isin, n2 seuraava arvo ja operaatiot n2 <operaatio> n1 
+  * Metodi suorittaa yhden operaation ja paluuarvo pinon p‰‰llimm‰iseksi 
   */
   protected int compute(Object num2, Object num1, String operand){
     n2 = (int)num2;
@@ -47,16 +47,16 @@ class Compute{
     
     switch (operand) {
       case "==":
-          result = n2 == n1;
+          result = (n2 == n1);
           break;
         case "<":
-          result = n2 < n1;      
+          result = (n2 < n1);      
           break;
         case ">":
-          result = n2 > n1;
+          result = (n2 > n1);
           break;
         case "!=":
-          result = n2 != n1;
+          result = (n2 != n1);
           break;    
         }
     System.out.println(n2 + " " + operand + " " + n1 + " equals: " + result);  
@@ -86,7 +86,7 @@ class Compute{
   // Tootuusarvo not
   protected boolean connective(Object bool1){
    b1 = (boolean)bool1;
-   System.out.println("Value is negated: " + !bool1);
+   System.out.println("Value is negated: " + bool1);
    return !(boolean)bool1;
   }
 }
