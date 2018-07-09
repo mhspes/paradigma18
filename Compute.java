@@ -1,5 +1,5 @@
 import java.util.Stack;
-    
+import java.lang.Math;    
 class Compute{
 
   private int n1;  // Pinon p‰‰llimm‰iset alkiot
@@ -7,6 +7,7 @@ class Compute{
   private boolean b1; // Pinon p‰‰llimm‰iset (boolean) arvot
   private boolean b2;
   private Object result;
+  private Math math;
 
   /* Oletuskonstruktori riitt‰‰, arvot luodaan ajon aikana
   *
@@ -23,17 +24,23 @@ class Compute{
           result = n2 + n1;
           System.out.println("Lasketaan :" + n2 + "+" + n1 + "=" + result);
           break;
-        case "-":
+      case "-":
           result = n2 - n1;
           System.out.println("Lasketaan :" + n2 + "-" + n1 + "=" + result);
           break;
-        case "*":
+      case "*":
           result = n2 * n1;
           System.out.println("Lasketaan :" + n2 + "*" + n1 + "=" + result);
           break;
-        case "/":
+      case "/":
           result = n2 / n1;
           System.out.println("Lasketaan :" + n2 + "/" + n1 + "=" + result);
+          break;
+      case "mod":
+        try{
+        result = math.floorMod(n2,n1);
+        System.out.println("Lasketaan :" + n2 + "mod(" + n1 + ") =" + result);
+      } catch (ArithmeticException e) { System.err.println("Virhe - nollajakaja");}
           break;
         }
     return (int)result;
@@ -77,9 +84,9 @@ class Compute{
           break;
         }
     if ((boolean)result){ 
-      System.out.println(b2 + " " + operand + " " + b1 + " is true "); 
+      System.out.println(b2 + " " + operand.toUpperCase() + " " + b1 + " is true "); 
     } else {
-      System.out.println(b2 + " " + operand + " " + b1 + " is false ");
+      System.out.println(b2 + " " + operand.toUpperCase() + " " + b1 + " is false ");
     }
     return (boolean)result;   
   }

@@ -4,14 +4,14 @@ class ForthCompiler{
   public static void main(String[] args){
     
     Scanner sc = new Scanner(System.in);
-    boolean running=true;   // Kääntäjä toteutuksessa. False--> lopetetaan ohjelma
+    boolean running = true; // Kääntäjä toteutuksessa. False--> lopetetaan ohjelma
     boolean input;          // Manuaalinen syöte (komentorivi)
     boolean read;           // Tiedostosta luku
     String cmd;             // Komento (input, read, exit, end), muu syöte -> virhe.
     
     KeyListener kl = new KeyListener(); // Olio komentorivisyötteelle
     
-    hjelp();
+    help();
     
     while(running){
       cmd = sc.nextLine();
@@ -24,7 +24,7 @@ class ForthCompiler{
         while(input){
           cmd = sc.nextLine();
           if(cmd.equals("help")){
-            hjelp();
+            help();
           }
           else if(cmd.equals("end")){
             System.out.println("Manual input stopped.");
@@ -51,7 +51,7 @@ class ForthCompiler{
           }
         }
       }
-      else if (cmd.equals("help")) hjelp();
+      else if (cmd.equals("help")) help();
       else if(cmd.equals("exit")){
         running = false;
         System.out.println("Ending.");
@@ -62,7 +62,7 @@ class ForthCompiler{
     }
   }
 
-  static void hjelp(){
+  static void help(){
     System.out.println("###########################################\nCommands:");
     System.out.println("Manual input: input\nRead from file: read\nEnd input type: end\nRun program: run");
     System.out.println("Print result: .\nExit: exit\nShow stacks: show\n");
