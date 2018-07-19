@@ -1,58 +1,59 @@
+// Main-metodi Forth- tulkin toiminnalle
+// Suoritus ilman parametreja ( java ForthCompiler )
+
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 class ForthCompiler{
   public static void main(String[] args){
-    
-    Scanner sc = new Scanner(System.in);
-    boolean running = true; // Kääntäjä toteutuksessa. False--> lopetetaan ohjelma
-    boolean input;          // Manuaalinen syöte (komentorivi)
-    boolean read;           // Tiedostosta luku
-    String cmd;             // Komento (input, read, exit, end), muu syöte -> virhe.
-    
-    KeyListener kl = new KeyListener(); // Olio komentorivisyötteelle
+
+    Scanner sc = new Scanner(System.in); 
+    boolean running = true;              
+    String cmd;
+    String line;      
+    KeyListener kl = new KeyListener();      // Syötettyjen merkkijonojen tulkintaan
     
     help();
     
     while(running){
       cmd = sc.nextLine();
+
+      if( cmd.length() > 4 && cmd.substring(cmd.length()-4,cmd.length()).equalsIgnoreCase(".txt")){
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(cmd))) {            
+          line = br.readLine();
+          while (line != null){
+            if(line.equals("") || line.substring(0,1).equals("?")){ // Jätetään tyhjät rivit ja kommentit huomiotta
+            } else {
+              kl.listen(line);                                      // Syötetään hyväksytyt rivit keyListener-oliolle
+            }               
+            line = br.readLine();
+          }
+          br.close();
+          System.out.println("File loaded.");
+        } catch (Exception f){System.out.println(f);}
+      }
       
-      /* Valitaan komentorivisyöte 
-       * end --> lopetetaan. */
-      if(cmd.equals("input")){
-        input = true;
-        System.out.println("Manual input chosen. Type commands and 'run'.");
-        while(input){
-          cmd = sc.nextLine();
-          if(cmd.equals("help")){
-            help();
-          }
-          else if(cmd.equals("end")){
-            System.out.println("Manual input stopped.");
-            input = false; 
-          } else {
-          kl.listen(cmd);
-          }
-        } 
+      // Koodin toteutus
+      else if(cmd.equalsIgnoreCase("run")){
+        kl.listen(cmd);   
       }
-      // Tiedostosta luku
-      // In progress..
-      else if(cmd.equals("read")){
-        read = true;
-        System.out.println("Read from file chosen"); 
-        System.out.println("Anna tiedoston nimi.");
-        while(read){
-          cmd = sc.nextLine();
-          
-          // Tähän filereadit ym
-          
-          if (cmd.equals("end")){
-            System.out.println("Read from file stopped.");
-            read = false;   
-          }
-        }
+      // Pinojen tulostus (testausmielessä)
+      else if(cmd.equalsIgnoreCase("show")){
+        kl.listen(cmd);   
       }
-      else if (cmd.equals("help")) help();
-      else if(cmd.equals("exit")){
+      // Ladatun koodin & pinojen resetointi
+      else if(cmd.equalsIgnoreCase("reset")){
+        kl.reset();   
+        System.out.println("File & stacks cleared.");
+      }
+
+      else if (cmd.equalsIgnoreCase("help")) help();
+
+      else if(cmd.equalsIgnoreCase("exit")){
         running = false;
         System.out.println("Ending.");
       }
@@ -61,11 +62,10 @@ class ForthCompiler{
       }
     }
   }
-
+  // Syöttöpaneelin käyttöohje
   static void help(){
-    System.out.println("###########################################\nCommands:");
-    System.out.println("Manual input: input\nRead from file: read\nEnd input type: end\nRun program: run");
-    System.out.println("Print result: .\nExit: exit\nShow stacks: show\n");
-    System.out.println("Show commands: help\n###########################################\n");
+    System.out.println("################# COMMANDS #################");
+    System.out.println("Read from txt-file: <name>.txt\nRemove loaded file and clear stacks: reset\nRun program: run");
+    System.out.println("Exit: exit\nShow commands: help\n############################################\n");
   }
 }

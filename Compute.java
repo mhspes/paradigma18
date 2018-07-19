@@ -1,52 +1,54 @@
+/* Luokka aritmettisille operaatioille, logiikalle ja vertailuille.
+ * KeyListener-oliosta alkiot n2 ja n1 tai vain n1, suoritetaan metodi,
+ * paluuarvo KeyListener-oliolle datapinon p‰‰llimm‰iseksi.
+ * */
+
 import java.util.Stack;
 import java.lang.Math;    
 class Compute{
 
-  private int n1;  // Pinon p‰‰llimm‰iset alkiot
+  private int n1;            // Pinon p‰‰llimm‰iset alkiot
   private int n2;
-  private boolean b1; // Pinon p‰‰llimm‰iset (boolean) arvot
+  private boolean b1;        // Pinon p‰‰llimm‰iset (boolean) arvot
   private boolean b2;
   private Object result;
   private Math math;
-
-  /* Oletuskonstruktori riitt‰‰, arvot luodaan ajon aikana
-  *
-  * Aritmettiset operaatiot 
-  * n1 pinon p‰‰llimm‰isin, n2 seuraava arvo ja operaatiot n2 <operaatio> n1 
-  * Metodi suorittaa yhden operaation ja paluuarvo pinon p‰‰llimm‰iseksi 
-  */
+  
+  /* Bin‰‰rioperaatiot +,-,*, /, mod
+   * @.pre 
+   * @.post
+   * 
+   * */
   protected int compute(Object num2, Object num1, String operand){
     n2 = (int)num2;
     n1 = (int)num1; 
-    System.out.println("Operandi : " + operand + " Arvot: " + n2 + " ja " + n1);
     switch (operand) {
       case "+":
-          result = n2 + n1;
-          System.out.println("Lasketaan :" + n2 + "+" + n1 + "=" + result);
-          break;
+        result = n2 + n1;
+        break;
       case "-":
-          result = n2 - n1;
-          System.out.println("Lasketaan :" + n2 + "-" + n1 + "=" + result);
-          break;
+        result = n2 - n1;
+        break;
       case "*":
-          result = n2 * n1;
-          System.out.println("Lasketaan :" + n2 + "*" + n1 + "=" + result);
-          break;
+        result = n2 * n1;
+        break;
       case "/":
-          result = n2 / n1;
-          System.out.println("Lasketaan :" + n2 + "/" + n1 + "=" + result);
-          break;
+        result = n2 / n1;
+        break;
       case "mod":
         try{
         result = math.floorMod(n2,n1);
-        System.out.println("Lasketaan :" + n2 + "mod(" + n1 + ") =" + result);
-      } catch (ArithmeticException e) { System.err.println("Virhe - nollajakaja");}
-          break;
-        }
+      } catch (ArithmeticException e) { System.err.println("Error - zero divisor");}
+      break;
+    }
     return (int)result;
   }
   
-  // Vertailut
+  /* Vertailut ==, <, >, !=
+   * @.pre 
+   * @.post
+   * 
+   * */
   protected boolean compare(Object num2, Object num1, String operand){
     n2 = (int)num2;
     n1 = (int)num1;
@@ -56,20 +58,24 @@ class Compute{
       case "==":
           result = (n2 == n1);
           break;
-        case "<":
+      case "<":
           result = (n2 < n1);      
           break;
-        case ">":
+      case ">":
           result = (n2 > n1);
           break;
-        case "!=":
+      case "!=":
           result = (n2 != n1);
           break;    
-        }
-    System.out.println(n2 + " " + operand + " " + n1 + " equals: " + result);  
+    } 
     return (boolean)result;   
   }
-  // Totuurarvo and, or
+  
+  /* Logiikka (and, or)
+   * @.pre
+   * @.post
+   * 
+   * */
   protected boolean connective(Object bool2, Object bool1, String operand){
     b2 = (boolean)bool2;
     b1 = (boolean)bool1;
@@ -77,23 +83,20 @@ class Compute{
     
     switch (operand) {
       case "or":
-          result = b2 || b1;
-          break;
-        case "and":
-          result = b2 && b1;      
-          break;
-        }
-    if ((boolean)result){ 
-      System.out.println(b2 + " " + operand.toUpperCase() + " " + b1 + " is true "); 
-    } else {
-      System.out.println(b2 + " " + operand.toUpperCase() + " " + b1 + " is false ");
+        result = b2 || b1;
+        break;
+      case "and":
+        result = b2 && b1;      
+        break;
     }
     return (boolean)result;   
   }
-  // Tootuusarvo not
+  /* Logiikka, not
+   * @.pre
+   * @.post
+   * */
   protected boolean connective(Object bool1){
-   b1 = (boolean)bool1;
-   System.out.println("Value is negated: " + bool1);
-   return !(boolean)bool1;
+    b1 = (boolean)bool1;
+    return !(boolean)bool1;
   }
 }
