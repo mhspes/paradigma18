@@ -1,0 +1,19 @@
+? Laskuri n:lle fibonaccin luvulle
+
+? Parametrit
+: VARIABLE fib0 VARIABLE fib1 VARIABLE fib2 VARIABLE lim ;
+: 0 fib0 ! 1 fib1 ! ;
+
+: "Syötä_positiivinen_kokonaisluku" print drop read lim ! ;
+: "Tulostetaan" print drop lim print drop "ensimmäistä_Fibonaccin_lukua:" print drop ;
+
+? Tarkastetaan formaatti
+: lim 1 < IF "Väärä_formaatti" print drop STOP ELSE THEN ;
+? Tarkastetaan onko 1 tai 2
+: lim 1 == IF fib0 print drop STOP ELSE lim 2 == IF fib0 print drop fib1 print drop STOP ELSE
+THEN THEN ;
+
+: lim 3 - lim ! ;
+: fib0 print drop fib1 print drop ;
+: 0 lim DO fib0 fib1 + fib2 ! fib1 fib0 ! fib2 fib1 ! fib2 print drop LOOP ;
+: "VALMIS" print drop ;
