@@ -1,0 +1,48 @@
+"Syötä_kokonaisluku_väliltä_1-200" print drop read
+
+? Tarkistetaan luvun oikeellisuus, tallennetaan muuttujaan
+? Huom, koska tulkki hyväksyy kokonaisluvut, alle 100 pyöristyy nollaan jne.
+
+dup dup 1 < swap 200 > or IF "Virheellinen_syöte" print drop STOP ELSE "Syötit:" print drop print
+THEN VARIABLE S 100 / S !
+
+
+VARIABLE A1 0 A1 !
+
+? Looppi
+1 1000 DO
+
+: "Syötä_"A",_"O",_"K",_"P"_tai_"STOP",_ilman_"-merkkejä." print drop ;
+
+? Mitä syötettiin
+: read dup
+"STOP" == IF "Closing_window.." print STOP ELSE dup THEN
+swap dup ;
+
+: "A" == IF
+: 10 A1 + 90 S * 30 S * A1 + 10 "red" line ;
+: 30 S * A1 + 10 50 S * A1 + 90 S * "red" line ;
+: 20 S * A1 + 50 S * 40 S * A1 + 50 S * "red" line ;
+: A1 50 S * + A1 ! ;
+
+ELSE dup
+: "O" == IF
+: 10 A1 + 10 80 S * "blue" circle ;
+: A1 95 S * + A1 ! ; 
+
+ELSE dup 
+: "P" == IF
+: 10 A1 + 10 10 A1 + 90 S * "green" line 10 A1 + 10 45 S * A1 + 10 "green" line ;
+: 45 S * A1 + 10 45 S * A1 + 45 S * "green" line 45 S * A1 + 45 S * 10 A1 + 45 S * "green" line ;
+: A1 50 S * + A1 ! ;
+
+ELSE dup
+: "K" == IF
+: 10 A1 + 10 10 A1 + 90 S * "black" line 10 A1 + 50 S * 45 S * A1 + 10 "black" line ;
+: 10 A1 + 50 S * 45 S * A1 + 90 S * "black" line ;
+: A1 50 S * + A1 ! ;
+
+ELSE
+"Virheellinen_syöte" print drop THEN ; THEN ; THEN ; THEN drop ;
+
+LOOP ;
