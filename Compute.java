@@ -11,6 +11,8 @@ class Compute{
   private int n2;
   private boolean b1;        // Pinon päällimmäiset (boolean) arvot
   private boolean b2;
+  private String s1;
+  private String s2;
   private Object result;
   private Math math;
   
@@ -45,29 +47,43 @@ class Compute{
   }
   
   /* Vertailut ==, <, >, !=
+   * ( == ja != toimivat myös merkkijonoille )
    * @.pre 
    * @.post
    * 
    * */
   protected boolean compare(Object num2, Object num1, String operand){
-    n2 = (int)num2;
-    n1 = (int)num1;
-    result = false;
     
-    switch (operand) {
-      case "==":
+    // 
+    if (num2 instanceof String && num1 instanceof String && operand.equals("==")){
+      s1 = (String)num1;
+      s2 = (String)num2;
+      if(s1.equals(s2)){
+        result = true;
+      } else {
+        result = false;
+      }
+    } else {
+      
+      n2 = (int)num2;
+      n1 = (int)num1;
+      result = false;
+      
+      switch (operand) {
+        case "==":
           result = (n2 == n1);
           break;
-      case "<":
+        case "<":
           result = (n2 < n1);      
           break;
-      case ">":
+        case ">":
           result = (n2 > n1);
           break;
-      case "!=":
+        case "!=":
           result = (n2 != n1);
           break;    
-    } 
+      } 
+    }
     return (boolean)result;   
   }
   

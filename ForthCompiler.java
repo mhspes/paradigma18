@@ -11,11 +11,12 @@ class ForthCompiler{
   public static void main(String[] args){
 
     Scanner sc = new Scanner(System.in); 
-    boolean running = true;              
+    boolean running = true;      
+    boolean input = false;
     String cmd;
     String line;      
-    KeyListener kl = new KeyListener();      // Syötettyjen merkkijonojen tulkintaan
-    
+    Decoder kl = new Decoder();      // Olio syötteiden tulkintaan
+
     help();
     
     while(running){
@@ -35,6 +36,26 @@ class ForthCompiler{
           br.close();
           System.out.println("File loaded.");
         } catch (Exception f){System.out.println(f);}
+      }
+      
+      // Manuaalinen syöte
+      else if(cmd.equalsIgnoreCase("input")){
+        System.out.println("Manual input. Type 'run' to execute, 'end' to end input.");
+        input = true; 
+        while (input){
+          if (cmd.equals("end")){
+            System.out.println("Manual input stopped.");
+            kl.reset();
+            input = false;
+            break;
+          }
+          else if(cmd.equalsIgnoreCase("reset")){
+            kl.reset();   
+            System.out.println("Stacks cleared.");
+          }
+          cmd = sc.nextLine();
+          kl.listen(cmd);         
+        }
       }
       
       // Koodin toteutus
@@ -65,7 +86,7 @@ class ForthCompiler{
   // Syöttöpaneelin käyttöohje
   static void help(){
     System.out.println("################# COMMANDS #################");
-    System.out.println("Read from txt-file: <name>.txt\nRemove loaded file and clear stacks: reset\nRun program: run");
-    System.out.println("Exit: exit\nShow commands: help\n############################################\n");
+    System.out.println("Read from txt-file: <name>.txt\nRemove loaded file and clear stacks: reset\nManual input: input");
+    System.out.println("Run program: run\nStop manual input: end\nExit: exit\nShow commands: help\n############################################\n");
   }
 }
